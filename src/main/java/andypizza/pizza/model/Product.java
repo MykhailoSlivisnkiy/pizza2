@@ -4,11 +4,13 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity(name = "Account")
-@Table(name = "accounts")
+@Entity(name = "Product")
+@Table(name = "menu")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Getter
+@Setter
 public class Product {
     @Id
     @GeneratedValue
