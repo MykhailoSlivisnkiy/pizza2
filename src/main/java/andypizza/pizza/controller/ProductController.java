@@ -16,13 +16,13 @@ public class ProductController {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public List<Product> findAllAccounts(){
+    public List<Product> findAllProducts(){
         return productService.findAll();
     }
 
     @GetMapping("/product/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Product findAllAccountsByUser(@PathVariable Long id){
+    public Product findProduct(@PathVariable Long id){
         return productService.findById(id);
     }
 }
