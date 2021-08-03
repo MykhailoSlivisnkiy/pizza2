@@ -36,4 +36,12 @@ public class Order {
 
     @Column(name = "price", nullable = false)
     private String price;
+
+    @Column(name = "status")
+    private String status;
+
+    @PrePersist
+    void prefillStatus() {
+        this.status = "todo";
+    }
 }

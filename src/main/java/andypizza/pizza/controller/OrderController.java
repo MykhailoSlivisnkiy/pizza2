@@ -25,4 +25,10 @@ public class OrderController {
     public void createOrder(@RequestBody Order order) {
         orderService.create(order);
     }
+
+    @PutMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public void updateAccount(@RequestBody Order order, @RequestBody String status) {
+        orderService.update(order, status);
+    }
 }
