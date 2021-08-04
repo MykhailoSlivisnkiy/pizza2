@@ -1,5 +1,6 @@
 package andypizza.pizza.controller;
 
+import andypizza.pizza.dto.OrderDto;
 import andypizza.pizza.model.Order;
 import andypizza.pizza.service.OrderService;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class OrderController {
 
     @PutMapping()
     @ResponseStatus(HttpStatus.OK)
-    public void updateAccount(@RequestBody Order order, @RequestBody String status) {
-        orderService.update(order, status);
+    public void updateAccount(@RequestBody OrderDto order) {
+        orderService.update(order);
     }
 }

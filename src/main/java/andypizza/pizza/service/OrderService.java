@@ -1,6 +1,7 @@
 package andypizza.pizza.service;
 
 import andypizza.pizza.constant.ErrorMessage;
+import andypizza.pizza.dto.OrderDto;
 import andypizza.pizza.exeption.NotFoundIdException;
 import andypizza.pizza.model.Order;
 import andypizza.pizza.repository.OrderRepository;
@@ -27,9 +28,9 @@ public class OrderService {
         orderRepository.save(account);
     }
 
-    public void update(Order order, String status) {
+    public void update(OrderDto order) {
         Order orderToUpdate = findById(order.getId());
-        orderToUpdate.setStatus(status);
+        orderToUpdate.setStatus(order.getStatus());
 
         orderRepository.save(orderToUpdate);
     }
