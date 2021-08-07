@@ -21,6 +21,7 @@ public class UserService {
     private JwtTokenProvider tokenProvider;
 
     public UserToken login(UsernameAndPasswordAuthenticationRequest request) {
+
         Authentication auth = new UsernamePasswordAuthenticationToken(
                 request.getUsername(),
                 request.getPassword());
