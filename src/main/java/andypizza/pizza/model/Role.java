@@ -16,6 +16,5 @@ public class Role {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "role", nullable = false)
     private String role;
 }

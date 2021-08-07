@@ -17,8 +17,12 @@ public class ApplicationUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        System.out.println("Hyi1");
         User user = userRepository.findByPhoneNumber(username).orElseThrow(
                 () -> new UsernameNotFoundException(String.format(ErrorMessage.USER_WAS_NOT_FOUND_BY_USERNAME, username)));
+        System.out.println("Hyi3");
+
         return ApplicationUser.create(user);
+
     }
 }

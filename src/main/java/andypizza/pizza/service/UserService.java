@@ -11,8 +11,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -20,19 +25,15 @@ public class UserService {
     private UserRepository userRepository;
     private JwtTokenProvider tokenProvider;
 
+
     public UserToken login(UsernameAndPasswordAuthenticationRequest request) {
-        Authentication auth = new UsernamePasswordAuthenticationToken(
-                request.getUsername(),
-                request.getPassword());
-
+        User user = userRepository.findByPhoneNumber(request.getUsername()).orElseThrow();
+        //Collection<? extends GrantedAuthority> authorities
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        System.out.println("HAHAHAHAH" + user.getRoles().getRole());
+        authorities.add(new SimpleGrantedAuthority(user.getRoles().getRole()));
+        Authentication auth = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword(), authorities);
         SecurityContextHolder.getContext().setAuthentication(auth);
-        User user = userRepository.findByPhoneNumber(request.getUsername())
-                .orElseThrow(() -> new NotFoundIdException(String.format(ErrorMessage.USER_WAS_NOT_FOUND_BY_USERNAME, request.getUsername())));
-
-        if(!user.getPassword().equals(request.getPassword())) {
-            throw new BadCredentialsException("Password is incorrect");
-        }
-
         return new UserToken(tokenProvider.generateAccessToken(auth));
     }
 }

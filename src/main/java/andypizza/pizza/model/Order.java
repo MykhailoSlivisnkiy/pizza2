@@ -22,14 +22,19 @@ public class Order {
     @Column(name = "phone", nullable = false)
     private String phone;
 
+    @Column(name = "comment")
+    private String comment;
+
+
+
     @Column(name = "city")
     private String city;
 
     @Column(name = "street")
     private String street;
 
-    @Column(name = "housnumber")
-    private String houseNumber;
+    @Column(name = "housenumber")
+    private String housenumber;
 
     @Column(name = "product", nullable = false)
     private String product;
@@ -39,6 +44,8 @@ public class Order {
 
     @Column(name = "status")
     private String status;
+
+
 
     @PrePersist
     void prefillStatus() {

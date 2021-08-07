@@ -46,9 +46,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     .parseClaimsJws(token);
 
             Claims body = claimsJws.getBody();
+            System.out.println("Hui2  " + body);
             String username = body.getSubject();
             var authorities = (List<Map<String, String>>) body.get("authorities");
-
+            System.out.println("Hui2  " + authorities);
             var simpleGrantedAuthorities = authorities.stream()
                     .map(m -> new SimpleGrantedAuthority(m.get("authority"))).collect(Collectors.toSet());
 

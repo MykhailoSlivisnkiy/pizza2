@@ -16,6 +16,7 @@ public class AuthenticationController {
     @PostMapping()
     @ResponseStatus(HttpStatus.OK)
     public UserToken login(@RequestBody UsernameAndPasswordAuthenticationRequest request) {
+        System.out.println("controller");
         return userService.login(request);
     }
 }
