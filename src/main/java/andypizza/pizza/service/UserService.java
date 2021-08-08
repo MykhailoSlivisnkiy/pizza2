@@ -1,6 +1,8 @@
 package andypizza.pizza.service;
 
+import andypizza.pizza.constant.ErrorMessage;
 import andypizza.pizza.dto.UserDto;
+import andypizza.pizza.exeption.NotFoundIdException;
 import andypizza.pizza.model.User;
 import andypizza.pizza.repository.UserRepository;
 import andypizza.pizza.security.entity.AuthorizationUser;
@@ -36,8 +38,12 @@ public class UserService {
         user.setStreet(userDto.getStreet());
         user.setRoles(roleService.findByRole(USER_ROLE));
 
-        System.out.println("INSERTED USER" + user);
-         userRepository.save(user);
+        userRepository.save(user);
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundIdException(String.format(ErrorMessage.PRODUCT_WAS_NOT_FOUND_BY_ID, id)));
     }
 
     public UserToken login(AuthorizationUser authUser) {
