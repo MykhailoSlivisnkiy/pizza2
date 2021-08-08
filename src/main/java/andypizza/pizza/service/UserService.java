@@ -1,11 +1,7 @@
 package andypizza.pizza.service;
 
-import andypizza.pizza.constant.ErrorMessage;
 import andypizza.pizza.dto.UserDto;
-import andypizza.pizza.exeption.NotFoundIdException;
-import andypizza.pizza.model.Order;
 import andypizza.pizza.model.User;
-import andypizza.pizza.repository.RoleRepository;
 import andypizza.pizza.repository.UserRepository;
 import andypizza.pizza.security.entity.AuthorizationUser;
 import andypizza.pizza.security.entity.UserToken;
@@ -31,16 +27,17 @@ public class UserService {
     private final JwtProvider jwtProvider;
 
     public void create(UserDto userDto) {
-//        User user = new User(roleService.findByRole(USER_ROLE));
-//        user.setCity(userDto.getCity());
-//        user.setHouse(userDto.getHouse());
-//        user.setName(userDto.getName());
-//        user.setPhoneNumber(userDto.getPhoneNumber());
-//        user.setStreet(userDto.getStreet());
-        //user.setRoles(roleService.findByRole(USER_ROLE));
+        User user = new User();
+        user.setCity(userDto.getCity());
+        user.setPassword(userDto.getPassword());
+        user.setHouse(userDto.getHouse());
+        user.setName(userDto.getName());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setStreet(userDto.getStreet());
+        user.setRoles(roleService.findByRole(USER_ROLE));
 
-     //   System.out.println("INSERTED USER" + user);
-       // userRepository.save(user);
+        System.out.println("INSERTED USER" + user);
+         userRepository.save(user);
     }
 
     public UserToken login(AuthorizationUser authUser) {

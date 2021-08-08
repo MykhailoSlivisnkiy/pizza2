@@ -4,7 +4,6 @@ import andypizza.pizza.security.entity.AuthorizationUser;
 import andypizza.pizza.security.entity.UserToken;
 import andypizza.pizza.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -1,6 +1,5 @@
 package andypizza.pizza.model;
 
-import andypizza.pizza.service.RoleService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +12,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 public class User {
-
-    public User(Role role) {
-        this.roles = role;
-    }
 
     @Id
     @GeneratedValue
