@@ -1,6 +1,6 @@
-package andypizza.pizza.security.filters;
+package andypizza.pizza.security.filter;
 
-import andypizza.pizza.config.SecurityConfig;
+import andypizza.pizza.security.config.SecurityConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -22,15 +22,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
 @Component
+@AllArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final SecurityConfig securityConfig;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
 
         if(authorizationHeader == null || authorizationHeader.equals("") || !authorizationHeader.startsWith("Bearer ")) {
@@ -47,6 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             Claims body = claimsJws.getBody();
             String username = body.getSubject();
+            System.out.println("body " + body);
             var authorities = (List<Map<String, String>>) body.get("authorities");
 
             var simpleGrantedAuthorities = authorities.stream()
@@ -56,7 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (JwtException e) {
-            throw  new IllegalStateException("Token cannot be trusted " + token);
+            throw  new IllegalStateException("Token cannot be trusted" + token);
         }
 
         filterChain.doFilter(request, response);

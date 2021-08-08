@@ -1,6 +1,6 @@
 package andypizza.pizza.security.jwt;
 
-import andypizza.pizza.config.SecurityConfig;
+import andypizza.pizza.security.config.SecurityConfig;
 import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -11,11 +11,10 @@ import java.time.LocalDate;
 
 @Component
 @AllArgsConstructor
-public class JwtTokenProvider {
+public class JwtProvider {
     private final SecurityConfig securityConfig;
 
     public String generateAccessToken(Authentication authResult) {
-        System.out.println("info " + authResult.getAuthorities());
         return securityConfig.getTokenPrefix() + Jwts.builder()
                 .setSubject(authResult.getName())
                 .claim("authorities", authResult.getAuthorities())

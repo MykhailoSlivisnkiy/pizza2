@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Service
 public class ApplicationUserService implements UserDetailsService {
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByPhoneNumber(username).orElseThrow(
                 () -> new UsernameNotFoundException(String.format(ErrorMessage.USER_WAS_NOT_FOUND_BY_USERNAME, username)));
+
         return ApplicationUser.create(user);
     }
 }

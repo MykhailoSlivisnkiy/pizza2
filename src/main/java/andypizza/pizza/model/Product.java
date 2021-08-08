@@ -16,7 +16,7 @@ public class Product {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "typeOfProduct", nullable = false)
+    @Column(name = "type", nullable = false)
     private String type;
 
     @Column(name = "title", unique = true, nullable = false)
@@ -25,12 +25,15 @@ public class Product {
     @Column(name = "img", unique = true, nullable = false)
     private String img;
 
-    @Column(name = "price", unique = true, nullable = false)
+    @Column(name = "price",  nullable = false)
     private Integer price;
 
     @Column(name = "ingredient", nullable = false)
     private String ingredient;
 
+
     @Column(name = "weight", nullable = false)
     private Integer weight;
+
+
 }

@@ -5,6 +5,7 @@ import andypizza.pizza.model.Order;
 import andypizza.pizza.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/orders")
 @AllArgsConstructor
+@CrossOrigin
 public class OrderController {
     private OrderService orderService;
 

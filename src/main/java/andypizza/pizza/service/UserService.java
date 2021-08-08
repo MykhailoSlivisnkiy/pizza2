@@ -4,36 +4,36 @@ import andypizza.pizza.constant.ErrorMessage;
 import andypizza.pizza.exeption.NotFoundIdException;
 import andypizza.pizza.model.User;
 import andypizza.pizza.repository.UserRepository;
+import andypizza.pizza.security.entity.AuthorizationUser;
 import andypizza.pizza.security.entity.UserToken;
-import andypizza.pizza.security.filters.UsernameAndPasswordAuthenticationRequest;
-import andypizza.pizza.security.jwt.JwtTokenProvider;
+import andypizza.pizza.security.jwt.JwtProvider;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
 public class UserService {
-    private UserRepository userRepository;
-    private JwtTokenProvider tokenProvider;
+    private final UserRepository userRepository;
+    private final JwtProvider jwtProvider;
 
-    public UserToken login(UsernameAndPasswordAuthenticationRequest request) {
-
-        Authentication auth = new UsernamePasswordAuthenticationToken(
-                request.getUsername(),
-                request.getPassword());
-
+    public UserToken login(AuthorizationUser authUser) {
+        User user = userRepository.findByPhoneNumber(authUser.getUsername()).orElseThrow();
+        //Collection<? extends GrantedAuthority> authorities
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority(user.getRoles().getRole()));
+        Authentication auth = new UsernamePasswordAuthenticationToken(authUser.getUsername(), authUser.getPassword(), authorities);
         SecurityContextHolder.getContext().setAuthentication(auth);
-        User user = userRepository.findByPhoneNumber(request.getUsername())
-                .orElseThrow(() -> new NotFoundIdException(String.format(ErrorMessage.USER_WAS_NOT_FOUND_BY_USERNAME, request.getUsername())));
+        Boolean isAdmin = user.getRoles().getRole().equals("ROLE_ADMIN");
 
-        if(!user.getPassword().equals(request.getPassword())) {
-            throw new BadCredentialsException("Password is incorrect");
-        }
+        return new UserToken(jwtProvider.generateAccessToken(auth), user.getId(), isAdmin);
 
-        return new UserToken(tokenProvider.generateAccessToken(auth));
     }
 }

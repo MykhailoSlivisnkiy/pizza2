@@ -1,4 +1,4 @@
-package andypizza.pizza.config;
+package andypizza.pizza.security.config;
 
 import io.jsonwebtoken.security.Keys;
 import lombok.Getter;
