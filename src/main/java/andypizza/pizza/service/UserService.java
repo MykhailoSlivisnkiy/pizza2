@@ -1,8 +1,11 @@
 package andypizza.pizza.service;
 
 import andypizza.pizza.constant.ErrorMessage;
+import andypizza.pizza.dto.UserDto;
 import andypizza.pizza.exeption.NotFoundIdException;
+import andypizza.pizza.model.Order;
 import andypizza.pizza.model.User;
+import andypizza.pizza.repository.RoleRepository;
 import andypizza.pizza.repository.UserRepository;
 import andypizza.pizza.security.entity.AuthorizationUser;
 import andypizza.pizza.security.entity.UserToken;
@@ -21,12 +24,27 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class UserService {
+    private static final String USER_ROLE = "ROLE_USER";
+
     private final UserRepository userRepository;
+    private final RoleService roleService;
     private final JwtProvider jwtProvider;
+
+    public void create(UserDto userDto) {
+//        User user = new User(roleService.findByRole(USER_ROLE));
+//        user.setCity(userDto.getCity());
+//        user.setHouse(userDto.getHouse());
+//        user.setName(userDto.getName());
+//        user.setPhoneNumber(userDto.getPhoneNumber());
+//        user.setStreet(userDto.getStreet());
+        //user.setRoles(roleService.findByRole(USER_ROLE));
+
+     //   System.out.println("INSERTED USER" + user);
+       // userRepository.save(user);
+    }
 
     public UserToken login(AuthorizationUser authUser) {
         User user = userRepository.findByPhoneNumber(authUser.getUsername()).orElseThrow();
-        //Collection<? extends GrantedAuthority> authorities
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(user.getRoles().getRole()));
         Authentication auth = new UsernamePasswordAuthenticationToken(authUser.getUsername(), authUser.getPassword(), authorities);

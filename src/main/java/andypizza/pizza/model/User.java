@@ -1,12 +1,11 @@
 package andypizza.pizza.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import andypizza.pizza.service.RoleService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity(name = "Users")
 @Table(name = "users")
@@ -14,6 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class User {
+
+    public User(Role role) {
+        this.roles = role;
+    }
 
     @Id
     @GeneratedValue
@@ -28,7 +31,16 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "street")
+    private String street;
+
+    @Column(name = "house")
+    private String house;
+
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "role_id")
     private Role roles;
 }

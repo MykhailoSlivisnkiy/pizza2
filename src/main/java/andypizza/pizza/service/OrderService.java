@@ -24,8 +24,8 @@ public class OrderService {
                 () -> new NotFoundIdException(String.format(ErrorMessage.PRODUCT_WAS_NOT_FOUND_BY_ID, id)));
     }
 
-    public void create(Order account) {
-        orderRepository.save(account);
+    public void create(Order order) {
+        orderRepository.save(order);
     }
 
     public void update(OrderDto order) {

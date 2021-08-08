@@ -41,6 +41,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new JwtAuthenticationFilter(securityConfig), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/products").permitAll()
+                .antMatchers("/users").permitAll()
                 .antMatchers(HttpMethod.POST, "/orders").permitAll()
                 .antMatchers(HttpMethod.GET, "/orders").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/orders").hasRole("ADMIN")

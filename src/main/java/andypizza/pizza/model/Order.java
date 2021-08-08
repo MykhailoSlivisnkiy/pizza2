@@ -45,8 +45,6 @@ public class Order {
     @Column(name = "status")
     private String status;
 
-
-
     @PrePersist
     void prefillStatus() {
         this.status = "todo";
