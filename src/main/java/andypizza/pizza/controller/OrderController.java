@@ -5,7 +5,7 @@ import andypizza.pizza.model.Order;
 import andypizza.pizza.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class OrderController {
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     public List<Order> findAllOrders(){
-        return orderService.findAll();
+        return orderService.findAllTodayOrders();
     }
 
     @PostMapping()

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "Order")
 @Table(name = "orders")
@@ -45,8 +46,12 @@ public class Order {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+
     @PrePersist
     void prefillStatus() {
         this.status = "todo";
+        this.createdDate = LocalDateTime.now();
     }
 }

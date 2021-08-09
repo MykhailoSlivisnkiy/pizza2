@@ -8,7 +8,9 @@ import andypizza.pizza.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -17,6 +19,12 @@ public class OrderService {
 
     public List<Order> findAll() {
         return orderRepository.findAll();
+    }
+
+    public List<Order> findAllTodayOrders() {
+        LocalDate today = LocalDate.now();
+
+        return orderRepository.findAll().stream().filter(x -> x.getCreatedDate().toLocalDate().equals(today)).collect(Collectors.toList());
     }
 
     public Order findById(Long id) {

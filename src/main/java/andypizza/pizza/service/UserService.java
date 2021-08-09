@@ -3,6 +3,7 @@ package andypizza.pizza.service;
 import andypizza.pizza.constant.ErrorMessage;
 import andypizza.pizza.dto.UserDto;
 import andypizza.pizza.exeption.NotFoundIdException;
+import andypizza.pizza.exeption.UserPasswordException;
 import andypizza.pizza.model.User;
 import andypizza.pizza.repository.UserRepository;
 import andypizza.pizza.security.entity.AuthorizationUser;
@@ -48,6 +49,11 @@ public class UserService {
 
     public UserToken login(AuthorizationUser authUser) {
         User user = userRepository.findByPhoneNumber(authUser.getUsername()).orElseThrow();
+
+        if(!user.getPassword().equals(authUser.getPassword())) {
+            throw new UserPasswordException(ErrorMessage.USER_HAS_WRONG_PASSWORD);
+        }
+
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(user.getRoles().getRole()));
         Authentication auth = new UsernamePasswordAuthenticationToken(authUser.getUsername(), authUser.getPassword(), authorities);
