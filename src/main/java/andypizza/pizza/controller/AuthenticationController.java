@@ -14,6 +14,8 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public UserToken login(@RequestBody AuthorizationUser user) {
-        return userService.login(user);
+        UserToken u = userService.login(user);
+        System.out.println("USER"+ u);
+        return u;
     }
 }

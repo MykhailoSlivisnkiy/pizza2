@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private UserService userService;
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public User findUserById(@PathVariable Long id) {
-        return userService.findById(id);
+       return userService.findById(id);
     }
 
     @PostMapping

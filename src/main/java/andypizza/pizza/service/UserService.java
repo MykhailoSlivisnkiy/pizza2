@@ -49,6 +49,8 @@ public class UserService {
 
     public UserToken login(AuthorizationUser authUser) {
         User user = userRepository.findByPhoneNumber(authUser.getUsername()).orElseThrow();
+        System.out.println("Password from db"+user.getPassword());
+        System.out.println("Password UI"+authUser.getPassword());
 
         if(!user.getPassword().equals(authUser.getPassword())) {
             throw new UserPasswordException(ErrorMessage.USER_HAS_WRONG_PASSWORD);
@@ -59,7 +61,7 @@ public class UserService {
         Authentication auth = new UsernamePasswordAuthenticationToken(authUser.getUsername(), authUser.getPassword(), authorities);
         SecurityContextHolder.getContext().setAuthentication(auth);
         Boolean isAdmin = user.getRoles().getRole().equals("ROLE_ADMIN");
-
+        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
         return new UserToken(jwtProvider.generateAccessToken(auth), user.getId(), isAdmin);
 
     }
