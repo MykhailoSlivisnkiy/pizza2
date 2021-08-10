@@ -11,7 +11,7 @@
     <groupId>andy-pizza</groupId>
     <artifactId>spring-gc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>spring-gc</name>
     <description>Spring google cloud example do deploy microservice</description>
     <properties>
