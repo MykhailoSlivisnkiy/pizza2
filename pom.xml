@@ -8,26 +8,12 @@
         <version>2.5.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>andy-pizza</groupId>
     <artifactId>spring-gc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>spring-gc</name>
-    <description>Spring google cloud example do deploy microservice</description>
-    <distributionManagement>
-        <repository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>corp1</id>
-            <name>Corporate Repository</name>
-            <url>scp://repo/maven2</url>
-            <layout>default</layout>
-        </repository>
-    </distributionManagement>
     <properties>
         <!-- ENDPOINTS -->
-        <endpoints.framework.version>2.0.8</endpoints.framework.version>
-        <endpoints.management.version>1.0.4</endpoints.management.version>
-        <endpoints.project.id>andy-pizza</endpoints.project.id>
         <appengine.maven.plugin.version>1.3.1</appengine.maven.plugin.version>
         <java.version>8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -117,33 +103,20 @@
             <artifactId>jetty-maven-plugin</artifactId>
             <version>11.0.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <!-- Exclude the Tomcat dependency -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>appengine-maven-plugin</artifactId>
-                <version>2.2.0</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <version>1</version>
-                    <projectId>piizza-andyz</projectId>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.3.7.v20160115</version>
             </plugin>
         </plugins>
     </build>
