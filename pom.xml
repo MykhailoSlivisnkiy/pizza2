@@ -25,15 +25,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <distributionManagement>
-        <repository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>piizza-andyz</id>
-            <name>Corporate Repository</name>
-            <layout>default</layout>
-            <url>file:///home/thara/testesb/in</url>
-        </repository>
-    </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -139,6 +130,11 @@
                     <version>1</version>
                     <projectId>piizza-andyz</projectId>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.3.7.v20160115</version>
             </plugin>
         </plugins>
     </build>
